@@ -62,8 +62,7 @@ public:
 private:
   double block_start = 0.7;
   double length_     = 3.5;
-  double height_     = 0.5; // [m]
-
+  double height_     = 0.05; // [m] //Estava em 0.5
   double eps_ = 0.03; // approximate as slope
   const double slope_ = height_/eps_;
 };
@@ -163,6 +162,26 @@ private:
 
   const double x_end1_ = x_start_+length_;
   const double x_end2_ = x_start_+2*length_;
+};
+
+/** @}*/
+
+
+/**
+ * @brief Sample terrain with parabola-modeled gap in x-direction.
+ */
+class MyTerrain : public HeightMap {
+public:
+  double GetHeight(double x, double y) const override;
+  double GetHeightDerivWrtX(double x, double y) const override;
+  double GetHeightDerivWrtXX(double x, double y) const override;
+
+private:
+  const double w_ = 1.5;
+  const double a_ = 0.08;
+  const double sin_start_ = 0.6;
+  const double pi = 3.14159265358979323846;
+
 };
 
 /** @}*/

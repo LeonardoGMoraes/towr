@@ -143,7 +143,7 @@ TowrUserInterface::PrintScreen() const
   printw(" [rad]");
 
   wmove(stdscr, ROBOT, X_KEY);
-  printw("r");
+  printw("l");
   wmove(stdscr, ROBOT, X_DESCRIPTION);
   printw("Robot");
   wmove(stdscr, ROBOT, X_VALUE);

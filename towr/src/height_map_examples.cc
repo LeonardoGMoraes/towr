@@ -28,6 +28,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ******************************************************************************/
 
 #include <towr/terrain/examples/height_map_examples.h>
+//#include "towr_grid_map/grid2towr.hpp"
+//#include "home/leo/catkin_ws/src/towr_grid_map/grid2towr.hpp"
+//#include "towr_grid_map/grid2towr.h"
+//adicionar o meu pacote no package.xml e CMakelist
 
 namespace towr {
 
@@ -208,6 +212,44 @@ ChimneyLR::GetHeightDerivWrtY (double x, double y) const
     dzdy = -slope_;
 
   return dzdy;
+}
+
+// Terreno do Leo
+// GAP
+double
+MyTerrain::GetHeight (double x, double y) const
+{
+  double h = 0.0;
+
+  //sin
+  if (sin_start_ <= x)
+    h = a_*sin(w_*x + pi/2);
+
+  return h;
+}
+
+double
+MyTerrain::GetHeightDerivWrtX (double x, double y) const
+{
+  double dhdx = 0.0;
+
+  // sin
+  if (sin_start_ <= x)
+    dhdx = a_*w_*cos(w_*x);
+
+  return dhdx;
+}
+
+double
+MyTerrain::GetHeightDerivWrtXX (double x, double y) const
+{
+  double dzdxx = 0.0;
+
+  // sin
+  if (sin_start_ <= x)
+    dzdxx = -a_*w_*w_*sin(w_*x);
+
+  return dzdxx;
 }
 
 } /* namespace towr */

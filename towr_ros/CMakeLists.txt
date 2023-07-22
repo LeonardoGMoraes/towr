@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   xpp_msgs
   xpp_states
   towr
+
 )
 
 
@@ -37,6 +38,8 @@ catkin_package(
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
+  ${EIGEN3_INCLUDE_DIR}
+  ${OCTOMAP_INCLUDE_DIR}
 )
 
 # The interface to derive from for ros integration
@@ -117,6 +120,7 @@ add_executable(rosbag_geom_msg_extractor
 target_link_libraries(rosbag_geom_msg_extractor
   ${catkin_LIBRARIES}
 )
+
 
 
 #############

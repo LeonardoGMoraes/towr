@@ -21,6 +21,7 @@
 
   <depend>ifopt</depend>
   <depend>eigen</depend>
+  <depend>towr_grid_map</depend>
   
   <!-- The following tags are recommended by REP-136 -->
   <exec_depend>catkin</exec_depend>

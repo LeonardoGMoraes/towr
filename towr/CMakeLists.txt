@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
 project(towr VERSION 1.3.2)
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
-find_package(ifopt 2.0.1 REQUIRED)
+find_package(ifopt 2.0.1 REQUIRED
+  towr_grid_map
+)
 
 
 ###########
@@ -65,6 +67,7 @@ add_library(${PROJECT_NAME} SHARED
 target_link_libraries(${PROJECT_NAME} 
   PUBLIC 
     ifopt::ifopt_core
+    
 )
 target_include_directories(${PROJECT_NAME} 
   PUBLIC

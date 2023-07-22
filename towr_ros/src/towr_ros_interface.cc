@@ -99,7 +99,7 @@ TowrRosInterface::UserCommandCallback(const TowrCommandMsg& msg)
   PublishInitialState();
 
   // Defaults to /home/user/.ros/
-  std::string bag_file = "towr_trajectory.bag";
+  std::string bag_file = "towr_trajectory2.bag";
   if (msg.optimize || msg.play_initialization) {
     nlp_ = ifopt::Problem();
     for (auto c : formulation_.GetVariableSets(solution))
