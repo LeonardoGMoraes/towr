@@ -31,6 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define TOWR_TOWR_ROS_INCLUDE_TOWR_ROS_HEIGHT_MAP_EXAMPLES_H_
 
 #include <towr/terrain/height_map.h>
+#include "towr_grid_map/grid2towr.h"
 
 namespace towr {
 
@@ -45,7 +46,7 @@ namespace towr {
 class FlatGround : public HeightMap {
 public:
   FlatGround(double height = 0.0);
-  double GetHeight(double x, double y)  const override { return height_; };
+  double GetHeight(double x, double y)   override { return height_; };
 
 private:
   double height_; // [m]
@@ -56,8 +57,8 @@ private:
  */
 class Block : public HeightMap {
 public:
-  double GetHeight(double x, double y)  const override;
-  double GetHeightDerivWrtX(double x, double y) const override;
+  double GetHeight(double x, double y)   override;
+  double GetHeightDerivWrtX(double x, double y)  override;
 
 private:
   double block_start = 0.7;
@@ -72,7 +73,7 @@ private:
  */
 class Stairs : public HeightMap {
 public:
-  double GetHeight(double x, double y) const override;
+  double GetHeight(double x, double y)  override;
 
 private:
   double first_step_start_  = 1.0;
@@ -87,9 +88,9 @@ private:
  */
 class Gap : public HeightMap {
 public:
-  double GetHeight(double x, double y) const override;
-  double GetHeightDerivWrtX(double x, double y) const override;
-  double GetHeightDerivWrtXX(double x, double y) const override;
+  double GetHeight(double x, double y)  override;
+  double GetHeightDerivWrtX(double x, double y)  override;
+  double GetHeightDerivWrtXX(double x, double y)  override;
 
 private:
   const double gap_start_ = 1.0;
@@ -115,8 +116,8 @@ private:
  */
 class Slope : public HeightMap {
 public:
-  double GetHeight(double x, double y) const override;
-  double GetHeightDerivWrtX(double x, double y) const override;
+  double GetHeight(double x, double y)  override;
+  double GetHeightDerivWrtX(double x, double y)  override;
 
 private:
   const double slope_start_ = 1.0;
@@ -134,8 +135,8 @@ private:
  */
 class Chimney : public HeightMap {
 public:
-  double GetHeight(double x, double y) const override;
-  double GetHeightDerivWrtY(double x, double y) const override;
+  double GetHeight(double x, double y)  override;
+  double GetHeightDerivWrtY(double x, double y)  override;
 
 private:
   const double x_start_ = 1.0;
@@ -151,8 +152,8 @@ private:
  */
 class ChimneyLR : public HeightMap {
 public:
-  double GetHeight(double x, double y) const override;
-  double GetHeightDerivWrtY(double x, double y) const override;
+  double GetHeight(double x, double y)  override;
+  double GetHeightDerivWrtY(double x, double y)  override;
 
 private:
   const double x_start_ = 0.5;
@@ -168,19 +169,38 @@ private:
 
 
 /**
- * @brief Sample terrain with parabola-modeled gap in x-direction.
+ * @brief Teste para criacao de um terreno personalizado
  */
 class MyTerrain : public HeightMap {
 public:
-  double GetHeight(double x, double y) const override;
-  double GetHeightDerivWrtX(double x, double y) const override;
-  double GetHeightDerivWrtXX(double x, double y) const override;
+  double GetHeight(double x, double y)  override;
+  double GetHeightDerivWrtX(double x, double y)  override;
+  double GetHeightDerivWrtXX(double x, double y)  override;
 
 private:
   const double w_ = 1.5;
   const double a_ = 0.08;
   const double sin_start_ = 0.6;
-  const double pi = 3.14159265358979323846;
+  const double pi = 3.141592;
+
+};
+
+/**
+ * @brief Teste para criacao de um terreno personalizado
+ */
+class MyGridMapTerrain : public HeightMap {
+public:
+  //MyGridMapTerrain::MyGridMapTerrain();
+  Grid2Towr grid2towr;
+  double GetHeight(double x, double y)  override;
+  double GetHeightDerivWrtX(double x, double y)  override;
+  double GetHeightDerivWrtY(double x, double y)  override;
+  double GetHeightDerivWrtXX(double x, double y)  override;
+  double GetHeightDerivWrtYY(double x, double y)  override;
+  double GetHeightDerivWrtXY(double x, double y)  override;
+  double GetHeightDerivWrtYX(double x, double y)  override;
+
+private:
 
 };
 

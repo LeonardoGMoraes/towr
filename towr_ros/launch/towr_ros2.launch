@@ -32,5 +32,8 @@
 
   <!--  Launches the URDF visualizers  --> 
   <include file="$(find xpp_solo12)/launch/xpp_solo12.launch"></include>
+
+  <!--  Launches the URDF visualizers  --> 
+  <include file="$(find xpp_go1)/launch/xpp_go1.launch"></include>
        
 </launch>

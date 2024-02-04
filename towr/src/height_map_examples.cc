@@ -28,7 +28,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ******************************************************************************/
 
 #include <towr/terrain/examples/height_map_examples.h>
-//#include "towr_grid_map/grid2towr.hpp"
+
 //#include "home/leo/catkin_ws/src/towr_grid_map/grid2towr.hpp"
 //#include "towr_grid_map/grid2towr.h"
 //adicionar o meu pacote no package.xml e CMakelist
@@ -42,7 +42,7 @@ FlatGround::FlatGround(double height)
 }
 
 double
-Block::GetHeight (double x, double y) const
+Block::GetHeight (double x, double y) 
 {
   double h = 0.0;
 
@@ -57,7 +57,7 @@ Block::GetHeight (double x, double y) const
 }
 
 double
-Block::GetHeightDerivWrtX (double x, double y) const
+Block::GetHeightDerivWrtX (double x, double y) 
 {
   double dhdx = 0.0;
 
@@ -71,7 +71,7 @@ Block::GetHeightDerivWrtX (double x, double y) const
 
 // STAIRS
 double
-Stairs::GetHeight (double x, double y) const
+Stairs::GetHeight (double x, double y) 
 {
   double h = 0.0;
 
@@ -90,7 +90,7 @@ Stairs::GetHeight (double x, double y) const
 
 // GAP
 double
-Gap::GetHeight (double x, double y) const
+Gap::GetHeight (double x, double y) 
 {
   double h = 0.0;
 
@@ -102,7 +102,7 @@ Gap::GetHeight (double x, double y) const
 }
 
 double
-Gap::GetHeightDerivWrtX (double x, double y) const
+Gap::GetHeightDerivWrtX (double x, double y) 
 {
   double dhdx = 0.0;
 
@@ -113,7 +113,7 @@ Gap::GetHeightDerivWrtX (double x, double y) const
 }
 
 double
-Gap::GetHeightDerivWrtXX (double x, double y) const
+Gap::GetHeightDerivWrtXX (double x, double y) 
 {
   double dzdxx = 0.0;
 
@@ -126,7 +126,7 @@ Gap::GetHeightDerivWrtXX (double x, double y) const
 
 // SLOPE
 double
-Slope::GetHeight (double x, double y) const
+Slope::GetHeight (double x, double y) 
 {
   double z = 0.0;
   if (x >= slope_start_)
@@ -145,7 +145,7 @@ Slope::GetHeight (double x, double y) const
 }
 
 double
-Slope::GetHeightDerivWrtX (double x, double y) const
+Slope::GetHeightDerivWrtX (double x, double y) 
 {
   double dzdx = 0.0;
   if (x >= slope_start_)
@@ -163,7 +163,7 @@ Slope::GetHeightDerivWrtX (double x, double y) const
 
 // Chimney
 double
-Chimney::GetHeight (double x, double y) const
+Chimney::GetHeight (double x, double y) 
 {
   double z = 0.0;
 
@@ -174,7 +174,7 @@ Chimney::GetHeight (double x, double y) const
 }
 
 double
-Chimney::GetHeightDerivWrtY (double x, double y) const
+Chimney::GetHeightDerivWrtY (double x, double y) 
 {
   double dzdy = 0.0;
 
@@ -187,7 +187,7 @@ Chimney::GetHeightDerivWrtY (double x, double y) const
 
 // Chimney LR
 double
-ChimneyLR::GetHeight (double x, double y) const
+ChimneyLR::GetHeight (double x, double y) 
 {
   double z = 0.0;
 
@@ -201,7 +201,7 @@ ChimneyLR::GetHeight (double x, double y) const
 }
 
 double
-ChimneyLR::GetHeightDerivWrtY (double x, double y) const
+ChimneyLR::GetHeightDerivWrtY (double x, double y) 
 {
   double dzdy = 0.0;
 
@@ -217,7 +217,7 @@ ChimneyLR::GetHeightDerivWrtY (double x, double y) const
 // Terreno do Leo
 // GAP
 double
-MyTerrain::GetHeight (double x, double y) const
+MyTerrain::GetHeight (double x, double y) 
 {
   double h = 0.0;
 
@@ -229,7 +229,7 @@ MyTerrain::GetHeight (double x, double y) const
 }
 
 double
-MyTerrain::GetHeightDerivWrtX (double x, double y) const
+MyTerrain::GetHeightDerivWrtX (double x, double y) 
 {
   double dhdx = 0.0;
 
@@ -241,7 +241,7 @@ MyTerrain::GetHeightDerivWrtX (double x, double y) const
 }
 
 double
-MyTerrain::GetHeightDerivWrtXX (double x, double y) const
+MyTerrain::GetHeightDerivWrtXX (double x, double y) 
 {
   double dzdxx = 0.0;
 
@@ -251,5 +251,61 @@ MyTerrain::GetHeightDerivWrtXX (double x, double y) const
 
   return dzdxx;
 }
+
+
+// Terreno do Leo
+// Terreno definido pelas funcoes de Gridmap
+
+
+double MyGridMapTerrain::GetHeight (double x, double y) 
+{
+  double h = 0.0;
+  h = grid2towr.GetElevation(x,y);
+  return h;
+}
+
+double MyGridMapTerrain::GetHeightDerivWrtX (double x, double y) 
+{
+  double dhdx = 0.0;
+  dhdx = grid2towr.GetHeightDerivWrtX2(x,y);
+  return dhdx;
+}
+
+double MyGridMapTerrain::GetHeightDerivWrtY (double x, double y) 
+{
+  double dhdy = 0.0;
+  dhdy = grid2towr.GetHeightDerivWrtY2(x,y);
+  return dhdy;
+}
+
+double MyGridMapTerrain::GetHeightDerivWrtXX (double x, double y) 
+{
+  double dhdxx = 0.0;
+  dhdxx = grid2towr.GetHeightDerivWrtXX(x,y);
+  return dhdxx;
+}
+
+double MyGridMapTerrain::GetHeightDerivWrtYY (double x, double y) 
+{
+  double dhdyy = 0.0;
+  dhdyy = grid2towr.GetHeightDerivWrtYY(x,y);
+  return dhdyy;
+}
+
+double MyGridMapTerrain::GetHeightDerivWrtXY (double x, double y) 
+{
+  double dhdxy = 0.0;
+  dhdxy = grid2towr.GetHeightDerivWrtXY(x,y);
+  return dhdxy;
+}
+
+double MyGridMapTerrain::GetHeightDerivWrtYX (double x, double y) 
+{
+  double dhdyx = 0.0;
+  dhdyx = grid2towr.GetHeightDerivWrtYX(x,y);
+  return dhdyx;
+}
+
+
 
 } /* namespace towr */

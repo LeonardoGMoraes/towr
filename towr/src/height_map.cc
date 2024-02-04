@@ -46,12 +46,14 @@ HeightMap::MakeTerrain (TerrainID type)
     case ChimneyID:   return std::make_shared<Chimney>(); break;
     case ChimneyLRID: return std::make_shared<ChimneyLR>(); break;
     case MyTerrainID: return std::make_shared<MyTerrain>(); break;
+    case MyGridMapTerrainID: return std::make_shared<MyGridMapTerrain>(); break;
+
     default: assert(false); break;
   }
 }
 
 double
-HeightMap::GetDerivativeOfHeightWrt (Dim2D dim, double x, double y) const
+HeightMap::GetDerivativeOfHeightWrt (Dim2D dim, double x, double y) 
 {
   switch (dim) {
     case X: return GetHeightDerivWrtX(x,y);
@@ -61,14 +63,14 @@ HeightMap::GetDerivativeOfHeightWrt (Dim2D dim, double x, double y) const
 }
 
 HeightMap::Vector3d
-HeightMap::GetNormalizedBasis (Direction basis, double x, double y) const
+HeightMap::GetNormalizedBasis (Direction basis, double x, double y) 
 {
   return GetBasis(basis, x, y).normalized();
 }
 
 HeightMap::Vector3d
 HeightMap::GetBasis (Direction basis, double x, double y,
-                                  const DimDerivs& deriv) const
+                                  const DimDerivs& deriv) 
 {
   switch (basis) {
     case Normal:   return GetNormal(x,y, deriv);
@@ -80,7 +82,7 @@ HeightMap::GetBasis (Direction basis, double x, double y,
 
 HeightMap::Vector3d
 HeightMap::GetDerivativeOfNormalizedBasisWrt (Direction basis, Dim2D dim,
-                                              double x, double y) const
+                                              double x, double y) 
 {
   // inner derivative
   Vector3d dv_wrt_dim = GetBasis(basis, x, y, {dim});
@@ -92,7 +94,7 @@ HeightMap::GetDerivativeOfNormalizedBasisWrt (Direction basis, Dim2D dim,
 }
 
 HeightMap::Vector3d
-HeightMap::GetNormal(double x, double y, const DimDerivs& deriv) const
+HeightMap::GetNormal(double x, double y, const DimDerivs& deriv) 
 {
   Vector3d n;
 
@@ -111,7 +113,7 @@ HeightMap::GetNormal(double x, double y, const DimDerivs& deriv) const
 }
 
 HeightMap::Vector3d
-HeightMap::GetTangent1 (double x, double y, const DimDerivs& deriv) const
+HeightMap::GetTangent1 (double x, double y, const DimDerivs& deriv) 
 {
   Vector3d tx;
 
@@ -126,7 +128,7 @@ HeightMap::GetTangent1 (double x, double y, const DimDerivs& deriv) const
 }
 
 HeightMap::Vector3d
-HeightMap::GetTangent2 (double x, double y, const DimDerivs& deriv) const
+HeightMap::GetTangent2 (double x, double y, const DimDerivs& deriv) 
 {
   Vector3d ty;
 
@@ -141,7 +143,7 @@ HeightMap::GetTangent2 (double x, double y, const DimDerivs& deriv) const
 
 HeightMap::Vector3d
 HeightMap::GetDerivativeOfNormalizedVectorWrtNonNormalizedIndex (
-    const Vector3d& v, int idx) const
+    const Vector3d& v, int idx) 
 {
   // see notebook or
   // http://blog.mmacklin.com/2012/05/
@@ -150,7 +152,7 @@ HeightMap::GetDerivativeOfNormalizedVectorWrtNonNormalizedIndex (
 
 double
 HeightMap::GetSecondDerivativeOfHeightWrt (Dim2D dim1, Dim2D dim2,
-                                           double x, double y) const
+                                           double x, double y) 
 {
   if (dim1 == X_) {
     if (dim2 == X_) return GetHeightDerivWrtXX(x,y);

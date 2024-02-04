@@ -84,6 +84,7 @@ public:
                    ChimneyID,
                    ChimneyLRID,
                    MyTerrainID,
+                   MyGridMapTerrainID,
                    TERRAIN_COUNT };
 
   static HeightMap::Ptr MakeTerrain(TerrainID type);
@@ -98,7 +99,7 @@ public:
    * @param x The x position.
    * @param y The y position.
    */
-  virtual double GetHeight(double x, double y) const = 0;
+  virtual double GetHeight(double x, double y) = 0;
 
   /**
    * @brief How the height value changes at a 2D position in direction dim.
@@ -107,7 +108,7 @@ public:
    * @param y  The y position on the terrain.
    * @return  The derivative of the height with respect to the dimension.
    */
-  double GetDerivativeOfHeightWrt(Dim2D dim, double x, double y) const;
+  double GetDerivativeOfHeightWrt(Dim2D dim, double x, double y) ;
 
   /**
    * @brief Returns either the vector normal or tangent to the terrain patch.
@@ -116,7 +117,7 @@ public:
    * @param y  The y position on the terrain.
    * @return The normalized 3D vector in the specified direction.
    */
-  Vector3d GetNormalizedBasis(Direction direction, double x, double y) const;
+  Vector3d GetNormalizedBasis(Direction direction, double x, double y) ;
 
   /**
    * @brief How the terrain normal/tangent vectors change when moving in x or y.
@@ -127,11 +128,11 @@ public:
    * @return The normalized 3D derivative w.r.t dimension dim.
    */
   Vector3d GetDerivativeOfNormalizedBasisWrt(Direction direction, Dim2D dim,
-                                             double x, double y) const;
+                                             double x, double y) ;
   /**
    * @returns The constant friction coefficient over the whole terrain.
    */
-  double GetFrictionCoeff() const { return friction_coeff_; };
+  double GetFrictionCoeff()  { return friction_coeff_; };
 
 protected:
   double friction_coeff_ = 0.5;
@@ -148,27 +149,27 @@ private:
    * @returns the 3D @b not-normalized vector.
    */
   Vector3d GetBasis(Direction direction, double x, double y,
-                    const DimDerivs& dim_deriv= {}) const;
+                    const DimDerivs& dim_deriv= {}) ;
 
-  Vector3d GetNormal(double x,   double y, const DimDerivs& = {}) const;
-  Vector3d GetTangent1(double x, double y, const DimDerivs& = {}) const;
-  Vector3d GetTangent2(double x, double y, const DimDerivs& = {}) const;
+  Vector3d GetNormal(double x,   double y, const DimDerivs& = {}) ;
+  Vector3d GetTangent1(double x, double y, const DimDerivs& = {}) ;
+  Vector3d GetTangent2(double x, double y, const DimDerivs& = {}) ;
 
   double GetSecondDerivativeOfHeightWrt(Dim2D dim1, Dim2D dim2,
-                                        double x, double y) const;
+                                        double x, double y) ;
 
   Vector3d GetDerivativeOfNormalizedVectorWrtNonNormalizedIndex(
-      const Vector3d& non_normalized, int index) const;
+      const Vector3d& non_normalized, int index) ;
 
   // first derivatives that must be implemented by the user
-  virtual double GetHeightDerivWrtX(double x, double y) const { return 0.0; };
-  virtual double GetHeightDerivWrtY(double x, double y) const { return 0.0; };
+  virtual double GetHeightDerivWrtX(double x, double y)  { return 0.0; };
+  virtual double GetHeightDerivWrtY(double x, double y)  { return 0.0; };
 
   // second derivatives with respect to first letter, then second
-  virtual double GetHeightDerivWrtXX(double x, double y) const { return 0.0; };
-  virtual double GetHeightDerivWrtXY(double x, double y) const { return 0.0; };
-  virtual double GetHeightDerivWrtYX(double x, double y) const { return 0.0; };
-  virtual double GetHeightDerivWrtYY(double x, double y) const { return 0.0; };
+  virtual double GetHeightDerivWrtXX(double x, double y)  { return 0.0; };
+  virtual double GetHeightDerivWrtXY(double x, double y)  { return 0.0; };
+  virtual double GetHeightDerivWrtYX(double x, double y)  { return 0.0; };
+  virtual double GetHeightDerivWrtYY(double x, double y)  { return 0.0; };
 };
 
 
@@ -181,7 +182,8 @@ const static std::map<HeightMap::TerrainID, std::string> terrain_names =
   {HeightMap::SlopeID,       "Slope"      },
   {HeightMap::ChimneyID,     "Chimney"    },
   {HeightMap::ChimneyLRID,   "ChimenyLR"  },
-  {HeightMap::MyTerrainID,   "MyTerrain"  }
+  {HeightMap::MyTerrainID,   "MyTerrain"  },
+  {HeightMap::MyGridMapTerrainID,   "MyGridMapTerrain"  }
 };
 
 } /* namespace towr */

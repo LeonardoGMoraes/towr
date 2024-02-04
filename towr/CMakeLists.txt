@@ -1,11 +1,40 @@
 cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
 project(towr VERSION 1.3.2)
 
+
+
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
-find_package(ifopt 2.0.1 REQUIRED
-  towr_grid_map
+find_package(ifopt 2.0.1 REQUIRED)
+
+find_package(towr_grid_map REQUIRED)
+
+catkin_package(
+   INCLUDE_DIRS include
+   LIBRARIES ${PROJECT_NAME}
+   CATKIN_DEPENDS towr_grid_map
+   DEPENDS ifopt
 )
 
+#find_package(catkin REQUIRED COMPONENTS
+#  towr_grid_map
+#)
+
+#find_package(catkin REQUIRED COMPONENTS
+#  roscpp
+#  rospy
+#  std_msgs
+#  towr_grid_map
+#)
+
+#add_executable(height_map_examples src/height_map_examples.cc)
+#target_link_libraries(height_map_examples ${catkin_LIBRARIES})
+
+#add_executable(teste_include src/teste_include.cpp)
+#target_link_libraries(teste_include ${catkin_LIBRARIES})
+#target_link_libraries(teste_include towr_grid_map)
+
+#add_executable(teste_include src/teste_include.cpp)
+#target_link_libraries(teste_include ${catkin_LIBRARIES})
 
 ###########
 ## Build ##
@@ -64,18 +93,25 @@ add_library(${PROJECT_NAME} SHARED
   src/euler_converter.cc
   src/phase_durations_observer.cc
 )
+
 target_link_libraries(${PROJECT_NAME} 
   PUBLIC 
     ifopt::ifopt_core
+    ${towr_grid_map_LIBRARIES}
     
 )
+
+include_directories(${towr_grid_map_INCLUDE_DIRS})
+
 target_include_directories(${PROJECT_NAME} 
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
+    
 )
 
 
+    
 #############
 ## Testing ##
 #############
