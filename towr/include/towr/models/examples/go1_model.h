@@ -45,15 +45,15 @@ public:
   {
     const double x_nominal_b = 0.1881;
     const double y_nominal_b = 0.12675;
-    const double z_nominal_b = -0.265; 
-    // cordenadas do centro de massa no nominal stance
+    const double z_nominal_b = -0.3; 
+    // cordenadas das patas no nominal stance
 
     nominal_stance_.at(LF) <<  x_nominal_b,   y_nominal_b, z_nominal_b;
     nominal_stance_.at(RF) <<  x_nominal_b,  -y_nominal_b, z_nominal_b;
     nominal_stance_.at(LH) << -x_nominal_b,   y_nominal_b, z_nominal_b;
     nominal_stance_.at(RH) << -x_nominal_b,  -y_nominal_b, z_nominal_b;
 
-    max_dev_from_nominal_ << 0.1, 0.1, 0.1;
+    max_dev_from_nominal_ << 0.1, 0.1, 0.1; 
   }
 };
 
@@ -64,7 +64,7 @@ class Go1DynamicModel : public SingleRigidBodyDynamics {
 public:
   Go1DynamicModel()
   : SingleRigidBodyDynamics(12.84,
-                    0.946438, 1.94478, 2.01835, 0.000938112, -0.00595386, -0.00146328,
+                    0.0168128557, 0.063009565, 0.0716547275, -0.0002296769, -0.0002945293, -0.0000418731,
                     4) {}
 };
 
