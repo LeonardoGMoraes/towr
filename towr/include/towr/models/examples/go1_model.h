@@ -43,7 +43,7 @@ class Go1KinematicModel : public KinematicModel {
 public:
   Go1KinematicModel () : KinematicModel(4)
   {
-    const double x_nominal_b = 0.1881;
+    const double x_nominal_b = 0.1966; //era 0.1881
     const double y_nominal_b = 0.12675;
     const double z_nominal_b = -0.3; 
     // cordenadas das patas no nominal stance
@@ -67,7 +67,8 @@ public:
                     0.0168128557, 0.063009565, 0.0716547275, -0.0002296769, -0.0002945293, -0.0000418731,
                     4) {}
 };
-
+// 12.84,0.0168128557, 0.063009565, 0.0716547275, -0.0002296769, -0.0002945293, -0.0000418731,4
+                    
 //SingleRigidBodyDynamics (double mass, double Ixx, double Iyy, double Izz, double Ixy, double Ixz, double Iyz, int ee_count);
                   
 } // namespace towr
