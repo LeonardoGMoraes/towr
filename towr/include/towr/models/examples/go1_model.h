@@ -43,7 +43,7 @@ class Go1KinematicModel : public KinematicModel {
 public:
   Go1KinematicModel () : KinematicModel(4)
   {
-    const double x_nominal_b = 0.1966; //era 0.1881
+    const double x_nominal_b = 0.1881; //era 0.1881
     const double y_nominal_b = 0.12675;
     const double z_nominal_b = -0.3; 
     // cordenadas das patas no nominal stance

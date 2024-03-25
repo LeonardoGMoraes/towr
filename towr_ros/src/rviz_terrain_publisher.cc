@@ -50,7 +50,7 @@ void UserCommandCallback(const towr_ros::TowrCommand& msg_in)
   // x-y area patch that should be drawn in rviz
   double dxy   =  0.06;
   double x_min = -1.0;
-  double x_max =  4.0;
+  double x_max =  7.0;
   double y_min = -1.0;
   double y_max =  1.0;
 
