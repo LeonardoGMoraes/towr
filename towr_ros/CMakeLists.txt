@@ -17,8 +17,13 @@ find_package(catkin REQUIRED COMPONENTS
 
 
 ## Generate messages in the 'msg' folder
-add_message_files( FILES TowrCommand.msg )
-generate_messages( DEPENDENCIES std_msgs xpp_msgs )
+add_message_files(
+  FILES
+  TowrCommand.msg
+  Vector_leo.msg
+  Gait.msg
+)
+generate_messages( DEPENDENCIES std_msgs xpp_msgs)
 
 
 ###################################

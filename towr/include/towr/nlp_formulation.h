@@ -122,6 +122,10 @@ private:
   ContraintPtrVec MakeSwingConstraint() const;
   ContraintPtrVec MakeBaseRangeOfMotionConstraint(const SplineHolder& s) const;
   ContraintPtrVec MakeBaseAccConstraint(const SplineHolder& s) const;
+  ContraintPtrVec MakeSafeFootholdConstraint() const;
+  ContraintPtrVec MakeDiscretizedTerrainConstraint(const SplineHolder& s) const;
+
+
 
   // costs
   CostPtrVec GetCost(const Parameters::CostName& id, double weight) const;

@@ -84,7 +84,7 @@ public:
                    ChimneyID,
                    ChimneyLRID,
                    MyTerrainID,
-                   MyGridMapTerrainID,
+                   GridMapTerrainID,
                    TERRAIN_COUNT };
 
   static HeightMap::Ptr MakeTerrain(TerrainID type);
@@ -183,7 +183,7 @@ const static std::map<HeightMap::TerrainID, std::string> terrain_names =
   {HeightMap::ChimneyID,     "Chimney"    },
   {HeightMap::ChimneyLRID,   "ChimenyLR"  },
   {HeightMap::MyTerrainID,   "MyTerrain"  },
-  {HeightMap::MyGridMapTerrainID,   "MyGridMapTerrain"  }
+  {HeightMap::GridMapTerrainID,   "GridMapTerrain"  }
 };
 
 } /* namespace towr */

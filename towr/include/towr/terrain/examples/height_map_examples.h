@@ -63,7 +63,7 @@ public:
 private:
   double block_start = 0.75;
   double length_     = 3.5;
-  double height_     = 0.07; // [m] //Estava em 0.5
+  double height_     = 0.13; // [m] //Estava em 0.5
   double eps_ = 0.03; // approximate as slope
   const double slope_ = height_/eps_;
 };
@@ -94,7 +94,7 @@ public:
 
 private:
   const double gap_start_ = 1.0;
-  const double w = 0.5;
+  const double w = 0.2;
   const double h = 1.5;
 
   const double slope_ = h/w;
@@ -188,9 +188,9 @@ private:
 /**
  * @brief Teste para criacao de um terreno personalizado
  */
-class MyGridMapTerrain : public HeightMap {
+class GridMapTerrain : public HeightMap {
 public:
-  //MyGridMapTerrain::MyGridMapTerrain();
+  //GridMapTerrain::GridMapTerrain();
   Grid2Towr grid2towr;
   double GetHeight(double x, double y)  override;
   double GetHeightDerivWrtX(double x, double y)  override;

@@ -68,7 +68,7 @@ TowrUserInterface::TowrUserInterface ()
   goal_geom_.ang.p_ << 0.0, 0.0, 0.0; // roll, pitch, yaw angle applied Z->Y'->X''
 
   robot_      = RobotModel::Go1;
-  terrain_    = HeightMap::MyGridMapTerrainID;
+  terrain_    = HeightMap::GridMapTerrainID;
   gait_combo_ = GaitGenerator::C2;
   total_duration_ = 10;
   visualize_trajectory_ = false;

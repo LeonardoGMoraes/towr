@@ -257,49 +257,49 @@ MyTerrain::GetHeightDerivWrtXX (double x, double y)
 // Terreno definido pelas funcoes de Gridmap
 
 
-double MyGridMapTerrain::GetHeight (double x, double y) 
+double GridMapTerrain::GetHeight (double x, double y) 
 {
   double h = 0.0;
   h = grid2towr.GetElevation(x,y);
   return h;
 }
 
-double MyGridMapTerrain::GetHeightDerivWrtX (double x, double y) 
+double GridMapTerrain::GetHeightDerivWrtX (double x, double y) 
 {
   double dhdx = 0.0;
   dhdx = grid2towr.GetHeightDerivWrtX2(x,y);
   return dhdx;
 }
 
-double MyGridMapTerrain::GetHeightDerivWrtY (double x, double y) 
+double GridMapTerrain::GetHeightDerivWrtY (double x, double y) 
 {
   double dhdy = 0.0;
   dhdy = grid2towr.GetHeightDerivWrtY2(x,y);
   return dhdy;
 }
 
-double MyGridMapTerrain::GetHeightDerivWrtXX (double x, double y) 
+double GridMapTerrain::GetHeightDerivWrtXX (double x, double y) 
 {
   double dhdxx = 0.0;
   dhdxx = grid2towr.GetHeightDerivWrtXX(x,y);
   return dhdxx;
 }
 
-double MyGridMapTerrain::GetHeightDerivWrtYY (double x, double y) 
+double GridMapTerrain::GetHeightDerivWrtYY (double x, double y) 
 {
   double dhdyy = 0.0;
   dhdyy = grid2towr.GetHeightDerivWrtYY(x,y);
   return dhdyy;
 }
 
-double MyGridMapTerrain::GetHeightDerivWrtXY (double x, double y) 
+double GridMapTerrain::GetHeightDerivWrtXY (double x, double y) 
 {
   double dhdxy = 0.0;
   dhdxy = grid2towr.GetHeightDerivWrtXY(x,y);
   return dhdxy;
 }
 
-double MyGridMapTerrain::GetHeightDerivWrtYX (double x, double y) 
+double GridMapTerrain::GetHeightDerivWrtYX (double x, double y) 
 {
   double dhdyx = 0.0;
   dhdyx = grid2towr.GetHeightDerivWrtYX(x,y);

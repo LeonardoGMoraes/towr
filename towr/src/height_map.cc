@@ -46,7 +46,7 @@ HeightMap::MakeTerrain (TerrainID type)
     case ChimneyID:   return std::make_shared<Chimney>(); break;
     case ChimneyLRID: return std::make_shared<ChimneyLR>(); break;
     case MyTerrainID: return std::make_shared<MyTerrain>(); break;
-    case MyGridMapTerrainID: return std::make_shared<MyGridMapTerrain>(); break;
+    case GridMapTerrainID: return std::make_shared<GridMapTerrain>(); break;
 
     default: assert(false); break;
   }

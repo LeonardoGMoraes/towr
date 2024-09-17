@@ -71,6 +71,8 @@ add_library(${PROJECT_NAME} SHARED
   src/range_of_motion_constraint.cc
   src/spline_acc_constraint.cc
   src/linear_constraint.cc
+  src/safe_foothold_constraint.cc
+  src/discretized_terrain_constraint.cc
   # costs
   src/node_cost.cc
   src/soft_constraint.cc

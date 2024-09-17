@@ -40,6 +40,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <towr/constraints/terrain_constraint.h>
 #include <towr/constraints/total_duration_constraint.h>
 #include <towr/constraints/spline_acc_constraint.h>
+#include <towr/constraints/safe_foothold_constraint.h>
+#include <towr/constraints/discretized_terrain_constraint.h>
 
 #include <towr/costs/node_cost.h>
 #include <towr/variables/nodes_variables_all.h>
@@ -221,6 +223,8 @@ NlpFormulation::GetConstraint (Parameters::ConstraintName name,
     case Parameters::Force:          return MakeForceConstraint();
     case Parameters::Swing:          return MakeSwingConstraint();
     case Parameters::BaseAcc:        return MakeBaseAccConstraint(s);
+    case Parameters::SafeFoot:       return MakeSafeFootholdConstraint();
+    case Parameters::DiscretizedTerrain: return MakeDiscretizedTerrainConstraint(s);
     default: throw std::runtime_error("constraint not defined!");
   }
 }
@@ -375,4 +379,35 @@ NlpFormulation::MakeEEMotionCost(double weight) const
   return cost;
 }
 
+NlpFormulation::ContraintPtrVec
+NlpFormulation::MakeSafeFootholdConstraint () const
+{
+  ContraintPtrVec constraints;
+
+  for (int ee=0; ee<params_.GetEECount(); ee++) {
+    auto sfc = std::make_shared<SafeFootholdConstraint>(terrain_,
+                                               params_.safety_radius_,
+                                               ee);
+    constraints.push_back(sfc);
+  }
+
+  return constraints;
+}
+
+NlpFormulation::ContraintPtrVec
+NlpFormulation::MakeDiscretizedTerrainConstraint (const SplineHolder& s) const
+{
+  ContraintPtrVec c;
+
+  for (int ee=0; ee<params_.GetEECount(); ee++) {
+    auto dtc = std::make_shared<DiscretizedTerrainConstraint>(params_.GetTotalTime(),
+                                                         params_.dt_constraint_discretized_terain_,
+                                                         ee,
+                                                         terrain_,
+                                                         s);
+    c.push_back(dtc);
+  }
+
+  return c;
+}
 } /* namespace towr */

@@ -143,7 +143,11 @@ public:
                         Force,          ///< sets ForceConstraint
                         Swing,          ///< sets SwingConstraint
                         BaseRom,        ///< sets BaseMotionConstraint
-                        BaseAcc         ///< sets SplineAccConstraint
+                        BaseAcc,        ///< sets SplineAccConstraint
+                        SafeFoot,         ///< Sets safety constraint
+                        DiscretizedTerrain
+                        //BaseAcc         ///< sets SplineAccConstraint
+
   };
   /**
    *  @brief Indentifiers to be used to add certain costs to the optimization
@@ -196,6 +200,10 @@ public:
 
   /// The maximum allowable force [N] in normal direction
   double force_limit_in_normal_direction_;
+
+  //leo
+  double safety_radius_;
+  double dt_constraint_discretized_terain_;
 
   /// which dimensions (x,y,z) of the final base state should be bounded
   std::vector<int> bounds_final_lin_pos_,

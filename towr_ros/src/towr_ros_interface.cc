@@ -111,6 +111,7 @@ TowrRosInterface::UserCommandCallback(const TowrCommandMsg& msg)
       nlp_.AddCostSet(c);
 
     solver_->Solve(nlp_);
+    //formulation.params_.ee_phase_durations_
     SaveOptimizationAsRosbag(bag_file, robot_params_msg, msg, false);
   }
 
@@ -243,6 +244,107 @@ TowrRosInterface::SaveOptimizationAsRosbag (const std::string& bag_name,
     m.data = n_iterations;
     bag.write(towr_msgs::nlp_iterations_count, t0, m);
   }
+
+  //bag.write(xpp_msgs::robot_parameters, t0, robot_params);
+  //for (int t = 1e-6; t <= solution.base_linear_->GetTotalTime(); t+=visualization_dt_){
+    //auto teste = solution.phase_durations_.at(0)->IsContactPhase(t);;
+    //std::cout << teste << std::endl;
+  //}
+
+  
+  auto feet0 = solution.phase_durations_.at(0)->GetPhaseDurations();
+  auto feet1 = solution.phase_durations_.at(1)->GetPhaseDurations();
+  auto feet2 = solution.phase_durations_.at(2)->GetPhaseDurations();
+  auto feet3 = solution.phase_durations_.at(3)->GetPhaseDurations();
+  std::vector<std::vector<double>> feet{feet0,feet1,feet2,feet3};
+
+  std::cout << "teste msg feet" << std::endl;
+  for (int c = 0; c <10 ; c++){
+    std::cout << feet[0][c] << std::endl;
+  }
+
+  std::cout << "sizes" << std::endl;
+  int size = feet[0].size();
+  int size1 = feet[1].size();
+  int size2 = feet[2].size();
+  int size3 = feet[3].size();
+
+  std::vector<double> contact0;
+  std::vector<double> contact1;
+  std::vector<double> contact2;
+  std::vector<double> contact3;
+  
+  double t_0 = 0.0;
+  for (int i0=0; i0<size; i0++){
+    t_0 += feet0[i0];
+    contact0.push_back(solution.phase_durations_.at(0)->IsContactPhase(t_0));
+  }
+
+  double t_1 = 0.0;
+  for (int i1=0; i1<size1; i1++){
+    t_1 += feet1[i1];
+    contact1.push_back(solution.phase_durations_.at(1)->IsContactPhase(t_1));
+  }
+
+  double t_2 = 0.0;
+  for (int i2=0; i2<size2; i2++){
+    t_2 += feet2[i2];
+    contact2.push_back(solution.phase_durations_.at(2)->IsContactPhase(t_2));
+  }
+
+  double t_3 = 0.0;
+  for (int i3=0; i3<size3; i3++){
+    t_3 += feet3[i3];
+    contact3.push_back(solution.phase_durations_.at(3)->IsContactPhase(t_3));
+  }
+
+  std::vector<std::vector<double>> contact{contact0, contact1, contact2, contact3};
+
+
+  /*
+  auto feet0_formulation = formulation_.params_.ee_phase_durations_.at(0);
+  std::cout << "formulation:" << std::endl;
+  std::cout << feet0_formulation[0] << std::endl;
+  std::cout << feet0_formulation[1] << std::endl;
+  std::cout << feet0_formulation[2] << std::endl;
+  std::cout << feet0_formulation[3] << std::endl;
+  std::cout << feet0_formulation[4] << std::endl;
+  */
+
+  towr_ros::Gait gt;
+
+  towr_ros::Vector_leo fp0;
+  towr_ros::Vector_leo fp1;
+  towr_ros::Vector_leo fp2;
+  towr_ros::Vector_leo fp3;
+
+  fp0.data = feet[0];
+  fp1.data = feet[1];
+  fp2.data = feet[2];
+  fp3.data = feet[3];
+
+  gt.feet_phases.push_back(fp0);
+  gt.feet_phases.push_back(fp1);
+  gt.feet_phases.push_back(fp2);
+  gt.feet_phases.push_back(fp3);
+
+  towr_ros::Vector_leo cs0;
+  towr_ros::Vector_leo cs1;
+  towr_ros::Vector_leo cs2;
+  towr_ros::Vector_leo cs3;
+
+  cs0.data = contact[0];
+  cs1.data = contact[1];
+  cs2.data = contact[2];
+  cs3.data = contact[3];
+
+  gt.contact_status.push_back(cs0);
+  gt.contact_status.push_back(cs1);
+  gt.contact_status.push_back(cs2);
+  gt.contact_status.push_back(cs3);
+
+  bag.write("gait_leo", t0, gt);
+  
 
   // save the final trajectory
   auto final_trajectory = GetTrajectory();

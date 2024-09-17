@@ -50,6 +50,8 @@ Parameters::Parameters ()
   dt_constraint_dynamic_ = 0.1;
   dt_constraint_base_motion_ = duration_base_polynomial_/4.; // only for base RoM constraint
   bound_phase_duration_ = std::make_pair(0.2, 1.0);  // used only when optimizing phase durations, so gait
+  safety_radius_ = 0.02; //solucao pata terreno8 = 0.029 e 0.25dt   //
+  dt_constraint_discretized_terain_ = 0.25;
 
   // a minimal set of basic constraints
   constraints_.push_back(Terrain);
@@ -58,6 +60,9 @@ Parameters::Parameters ()
   constraints_.push_back(EndeffectorRom); //Ensures that the range of motion is respected at discrete times.
   constraints_.push_back(Force); // ensures unilateral forces and inside the friction cone.
   constraints_.push_back(Swing); // creates smoother swing motions, not absolutely required.
+  constraints_.push_back(BaseRom); // leo adicionou 
+  //constraints_.push_back(SafeFoot); // leo add
+  //constraints_.push_back(DiscretizedTerrain); //leo add // pro ultimo terreno eu rodei sem esses 2
 
   // optional costs to e.g penalize endeffector forces
   // costs_.push_back({ForcesCostID, 1.0}); weighed by 1.0 relative to other costs

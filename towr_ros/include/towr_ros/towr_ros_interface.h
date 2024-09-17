@@ -39,6 +39,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <xpp_msgs/RobotStateCartesian.h>
 #include <xpp_msgs/RobotParameters.h>
 #include <towr_ros/TowrCommand.h>
+#include <towr_ros/Gait.h>
+#include <towr_ros/Vector_leo.h>
 
 #include <towr/nlp_formulation.h>
 #include <ifopt/ipopt_solver.h>
